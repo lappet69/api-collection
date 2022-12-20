@@ -1,0 +1,47 @@
+### App check
+GET http://localhost:7000/
+
+
+### USER
+GET http://localhost:7000/user/
+
+###
+POST http://localhost:7000/user/create
+
+### LOGIN
+POST http://localhost:7000/user/login
+Content-Type: application/json
+
+{
+    "email": "email@gmail.com",
+    "password": "12"
+}
+
+
+### 
+GET http://localhost:7000/user/:id
+
+###
+POST http://localhost:7000/user/update/:id
+
+###
+POST http://localhost:7000/user/delete/:id
+
+
+### TODO
+GET http://localhost:7000/todo/
+
+###
+POST http://localhost:7000/todo/create
+
+### 
+GET http://localhost:7000/todo/:id
+
+###
+POST http://localhost:7000/todo/update/:id
+
+###
+POST http://localhost:7000/todo/delete/:id
+
+
+
