@@ -6,3 +6,5 @@ todos-nodejs-firebase-adminsdk-mlz3j-7d65b34a74.json
 .env
 
 /build
+# Local Netlify folder
+.netlify

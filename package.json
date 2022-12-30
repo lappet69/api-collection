@@ -2,10 +2,12 @@
   "name": "api-collection",
   "version": "1.0.0",
   "main": "./src/api.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "dev": "nodemon api.js",
-    "start": "cross-env NODE_ENV=development  ./node_modules/.bin/netlify-lambda serve src",
-    "build": "cross-env NODE_ENV=production  ./node_modules/.bin/netlify-lambda serve src"
+    "start": "node api.js"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +17,6 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
-    "aws-sdk": "^2.1280.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -25,7 +26,6 @@
     "jsonwebtoken": "^8.5.1",
     "mock-aws-s3": "^4.0.2",
     "netlify-lambda": "^2.0.15",
-    "nock": "^13.2.9",
     "path": "^0.12.7",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",

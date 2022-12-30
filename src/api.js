@@ -10,9 +10,13 @@ const router = require("./routes/index");
 app.use(express.json());
 app.use(cors());
 
-app.use("./netlify/functions/api", router);
-// app.use('/api/v1/',router)
+app.use('/api/v1/',router)
+// app.get('/z',(req,res)=>{
+//     res.json({'status':"sukses"})
+// })
 
-module.exports = app;
-module.exports.handler = serverless(app);
-//app.listen(PORT, ()=> console.log(`Server listening on ${PORT}`))
+// app.use("/.netlify/functions/api", router);
+
+// module.exports = app;
+// module.exports.handler = serverless(app);
+app.listen(PORT, ()=> console.log(`Server listening on ${PORT}`))
