@@ -2,7 +2,7 @@ const router = require("express").Router();
 const BookCTRL = require("../controllers/book.controller");
 const { verifyUser } = require("../middlewares/restrict");
 
-router.get("/", verifyUser, BookCTRL.getBooks);
+router.get("/", BookCTRL.getBooks);
 router.post("/create", BookCTRL.createBook);
 router.get("/:id", BookCTRL.getBookById);
 router.post("/update/:id", BookCTRL.updateBookById);
