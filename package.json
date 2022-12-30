@@ -1,13 +1,13 @@
 {
   "name": "api-collection",
   "version": "1.0.0",
-  "main": "./src/api.js",
+  "main": "index.js",
   "engines": {
     "node": "14.x"
   },
   "scripts": {
-    "dev": "nodemon api.js",
-    "start": "node ./src/api.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
