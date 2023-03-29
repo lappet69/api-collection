@@ -25,7 +25,7 @@ exports.createUser = async (req, res, next) => {
     });
 
     if (newUser) {
-      res.json(success("OK", { data: "Some random data" }, res.statusCode));
+      res.json(success("OK", res.statusCode));
     }
   } catch (error) {
     res.json({ status: error.status });
