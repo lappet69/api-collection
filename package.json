@@ -2,14 +2,18 @@
   "name": "api-collection",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/server.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
@@ -20,11 +24,14 @@
     "firebase": "^9.14.0",
     "firebase-admin": "^11.3.0",
     "jsonwebtoken": "^8.5.1",
+    "mock-aws-s3": "^4.0.2",
+    "netlify-lambda": "^2.0.15",
     "path": "^0.12.7",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.26.0",
-    "sequelize-cli": "^6.5.2"
+    "sequelize-cli": "^6.5.2",
+    "serverless-http": "^3.1.0"
   },
   "description": ""
 }
