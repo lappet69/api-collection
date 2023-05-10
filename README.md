@@ -24,6 +24,7 @@ Run development server
 npm run dev
 ```
 
-Screenshot
-![Alt Screenshot 1](https://github.com/lappet69/api-collection/ss.png)
-![Alt Screenshot 2](https://github.com/lappet69/api-collection/ss2.png)
+## Screenshot
+
+![Screenshot 1](https://raw.githubusercontent.com/lappet69/api-collection/master/ss.png)
+![Screenshot 2](https://raw.githubusercontent.com/lappet69/api-collection/master/ss2.png)
