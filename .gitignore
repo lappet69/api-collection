@@ -8,3 +8,6 @@ todos-nodejs-firebase-adminsdk-mlz3j-7d65b34a74.json
 /build
 # Local Netlify folder
 .netlify
+
+.vscode
+
