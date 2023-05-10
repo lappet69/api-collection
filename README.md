@@ -23,3 +23,7 @@ Run development server
 ```bash
 npm run dev
 ```
+
+Screenshot
+![Alt Screenshot 1](https://github.com/lappet69/api-collection/ss.png)
+![Alt Screenshot 2](https://github.com/lappet69/api-collection/ss2.png)
