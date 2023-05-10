@@ -1,5 +1,5 @@
 "use strict";
-require("dotenv").config();
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -11,7 +11,7 @@ const db = {};
 
 let sequelize;
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env.POSTGRESQL_DB_URI);
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(
     config.database,
@@ -20,15 +20,7 @@ if (config.use_env_variable) {
     config
   );
 }
-const testDbConnection = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-  }
-};
-testDbConnection();
+
 fs.readdirSync(__dirname)
   .filter((file) => {
     return (

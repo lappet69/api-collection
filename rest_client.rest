@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 
-### 
+###
 GET http://localhost:7000/user/:id
 
 ###
@@ -34,7 +34,7 @@ GET http://localhost:7000/todo/
 ###
 POST http://localhost:7000/todo/create
 
-### 
+###
 GET http://localhost:7000/todo/:id
 
 ###

@@ -11,7 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
     static getAllTodos({ user_id }) {
-      return this.findAll({ where: { user_id } });
+      if (user_id === "undefined") {
+        return [];
+      } else {
+        try {
+          return this.findAll({ where: { user_id } });
+        } catch (error) {
+          console.log(err);
+        }
+      }
     }
 
     static store({ task, date, time, user_id }) {

@@ -12,7 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-    static getUsers = async () => await this.findAll();
+    static getUsers = async () => {
+      return await this.findAll().then((users) =>
+        users.map((user) => {
+          return { fname: user.fname, lname: user.lname, email: user.email };
+        })
+      );
+    };
 
     static encrypt = (password) => {
       return bcrypt.hashSync(password, 10);
@@ -39,11 +45,11 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const user = await this.findOne({ where: { email } });
         if (!user) {
-          return error("user not found",400);
+          return error("user not found", 400);
         }
         const isPasswordValid = user.checkPassword(password);
         if (!isPasswordValid) {
-         return error("wrong password",400)
+          return error("wrong password", 400);
         }
         return Promise.resolve(user);
       } catch (error) {

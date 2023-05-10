@@ -5,25 +5,33 @@ exports.createTodo = async (req, res, next) => {
   const { task, date, time } = req.body;
   const { user_id } = req.auth;
 
-  try {
-    const store = await Todo.store({ task, date, time, user_id });
-    res.json(success("OK", store, res.statusCode));
-  } catch (error) {
-    console.log(error);
+  if (!task) {
+    res.status(400).json(error("Task cannot be null", res.statusCode));
+  } else {
+    try {
+      const store = await Todo.store({ task, date, time, user_id });
+      res.json(success("OK", store, res.statusCode));
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 
 exports.getTodos = async (req, res) => {
   const { user_id } = req?.auth;
   const results = await Todo.getAllTodos({ user_id });
-  res.json({ status: 200, data: results });
+  res.json({ message: "Ok", code: 200, results });
 };
 
 exports.getTodoById = async (req, res) => {
   const { id } = req.params;
+  console.log(id, req.auth.user_id);
   try {
-    const Todo = await Todo.getTodoById(id);
-    res.json({ status: 200, data: Todo });
+    const getTodo = await Todo.getTodoById({
+      id: id,
+      user_id: req.auth.user_id,
+    });
+    res.json({ message: "Ok", code: 200, result: getTodo });
   } catch (error) {
     console.log(error);
   }
@@ -33,18 +41,23 @@ exports.updateTodoById = async (req, res) => {
   const { id } = req.params;
   const { task, date, time, complete } = req.body;
   const { user_id } = req?.auth;
-  try {
-    const result = await Todo.updateTodoById({
-      id,
-      task,
-      date,
-      time,
-      complete,
-      user_id,
-    });
-    res.json({ status: 200, message: "succes update" });
-  } catch (error) {
-    console.log(error);
+  const checkId = await Todo.getTodoById({ id, user_id });
+  if (!checkId) {
+    res.json({ status: 400, message: "task is not found" });
+  } else {
+    try {
+      const result = await Todo.updateTodoById({
+        id,
+        task,
+        date,
+        time,
+        complete,
+        user_id,
+      });
+      res.json({ status: 200, message: "success update" });
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 
