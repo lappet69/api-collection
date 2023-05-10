@@ -2,7 +2,7 @@ require("dotenv").config();
 module.exports = {
   openapi: "3.0.3",
   info: {
-    title: "Swagger - OpenAPI 3.0",
+    title: "Free API Collection | Swagger- OpenAPI 3.0",
     description:
       "\nThis is a sample some API collection based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). \n\nYou can now help us improve the API whether it's by making changes to the definition itself or to the cod.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\nYou can visit my github here [Andre Sinabariba](https://github.com/lappet69/).\n\nThis is the source code [api-collection](https://github.com/lappet69/api-collection)",
     termsOfService: "http://swagger.io/terms/",
@@ -17,7 +17,7 @@ module.exports = {
   },
   servers: [
     {
-      url: `${process.env.BASE_URL}/api/v1`,
+      url: "http://localhost:7000/api/v1",
     },
   ],
   tags: [
@@ -27,44 +27,30 @@ module.exports = {
     },
     {
       name: "book",
-      description: "book collection (coming soon)",
+      description: "book collection",
     },
     {
       name: "todo",
-      description: "todo list collection (coming soon)",
+      description: "todo list collection",
     },
   ],
   paths: {
-    "/user": {
+    "/user/create": {
       post: {
         tags: ["user"],
         summary: "Create user",
         description: "This can only be done by the logged in user.",
         operationId: "createUser",
-        parameters: [
-          {
-            name: "email",
-            in: "query",
-            description: "The user name for login",
-            required: true,
-            schema: {
-              type: "string",
-            },
-          },
-          {
-            name: "password",
-            in: "query",
-            description: "The password for login in clear text",
-            required: true,
-            schema: {
-              type: "string",
-            },
-          },
-        ],
         requestBody: {
-          description: "Created user object",
+          description: "",
+          required: true,
           content: {
             "application/json": {
+              schema: {
+                $ref: "#/components/schemas/User",
+              },
+            },
+            "application/xml": {
               schema: {
                 $ref: "#/components/schemas/User",
               },
@@ -96,26 +82,20 @@ module.exports = {
         summary: "Logs user into the system",
         description: "",
         operationId: "loginUser",
-        parameters: [
-          {
-            name: "email",
-            in: "query",
-            description: "The user name for login",
-            required: true,
-            schema: {
-              type: "string",
+        requestBody: {
+          description: "",
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                example: {
+                  email: "email@gmail.com",
+                  password: "123",
+                },
+              },
             },
           },
-          {
-            name: "password",
-            in: "query",
-            description: "The password for login in clear text",
-            required: true,
-            schema: {
-              type: "string",
-            },
-          },
-        ],
+        },
         responses: {
           200: {
             description: "successful operation",
@@ -190,7 +170,7 @@ module.exports = {
         },
       },
     },
-    "/user/{email}": {
+    "/user/delete/{email}": {
       delete: {
         tags: ["user"],
         summary: "Delete user",
@@ -219,13 +199,657 @@ module.exports = {
               },
             },
           },
-          400: {
-            description: "Invalid username supplied",
-          },
           404: {
             description: "User not found",
           },
         },
+      },
+    },
+    "/book": {
+      get: {
+        tags: ["book"],
+        summary: "Get all book",
+        description: "",
+        operationId: "getAllBook",
+        responses: {
+          default: {
+            description: "successful operation",
+            content: {
+              "application/json": {
+                schema: {
+                  items: {
+                    $ref: "#/components/schemas/Book",
+                  },
+                  example: {
+                    id: "3,",
+                    title: "book3",
+                    author: "roki",
+                    desc: "desc book1",
+                    amount: null,
+                    createdAt: "2022-12-07T08:43:56.711Z",
+                    updatedAt: "2022-12-07T08:43:56.711Z",
+                  },
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+      },
+    },
+    "/book/create": {
+      post: {
+        tags: ["book"],
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+        summary: "Create book",
+        description: "",
+        operationId: "createBook",
+        requestBody: {
+          description: "",
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                example: {
+                  title: "newbook",
+                  author: "john book",
+                  desc: "book description",
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "successful operation",
+            content: {
+              "application/json": {
+                example: {
+                  message: "OK",
+                  error: false,
+                  code: 200,
+                  result: {
+                    data: "",
+                  },
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/book/{id}": {
+      get: {
+        tags: ["book"],
+        summary: "Get single book",
+        description: "",
+        operationId: "getBookById",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: "",
+            content: {
+              "application/json": {
+                schema: {
+                  example: {
+                    message: "Ok",
+                    code: 200,
+                    result: {
+                      id: "3,",
+                      title: "book3",
+                      author: "roki",
+                      desc: "desc book1",
+                      amount: null,
+                      createdAt: "2022-12-07T08:43:56.711Z",
+                      updatedAt: "2022-12-07T08:43:56.711Z",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+      },
+      put: {
+        tags: ["book"],
+        summary: "Update book",
+        description: "",
+        operationId: "updateBookById",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                example: {
+                  title: "book edited",
+                  author: "author edited",
+                  description: "desc",
+                },
+                required: ["title", "author"],
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Ok",
+                  code: 200,
+                },
+              },
+            },
+          },
+          400: {
+            description: "Bad request",
+            content: {
+              "application/json": {
+                example: {
+                  message: "title and author cannot be null",
+                  error: true,
+                  code: 400,
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+      },
+      delete: {
+        tags: ["book"],
+        summary: "Delete book",
+        description: "This can only be done by the logged in user.",
+        operationId: "deleteBook",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "The name that needs to be deleted",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: "successful operation",
+            content: {
+              "application/json": {
+                example: {
+                  message: "User deleted successfully",
+                  code: 200,
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+          404: {
+            description: "Book not found",
+          },
+        },
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+      },
+    },
+    "/todo": {
+      get: {
+        tags: ["todo"],
+        summary: "Get all todo by user logged in",
+        description: "",
+        operationId: "getAllTodo",
+        responses: {
+          200: {
+            description: "successful operation",
+            content: {
+              "application/json": {
+                schema: {
+                  items: {
+                    $ref: "#/components/schemas/Todo",
+                  },
+                  example: {
+                    message: "Ok",
+                    code: 200,
+                    result: [
+                      {
+                        id: 1,
+                        task: "task1",
+                        date: "2022-12-11",
+                        time: null,
+                        complete: true,
+                        user_id: 12,
+                        createdAt: "2022-12-11T09:30:24.644Z",
+                        updatedAt: "2022-12-11T09:30:24.644Z",
+                      },
+                      {
+                        id: 2,
+                        task: "task2",
+                        date: "2023-12-11",
+                        time: null,
+                        complete: false,
+                        user_id: 12,
+                        createdAt: "2022-12-11T09:30:24.644Z",
+                        updatedAt: "2022-12-11T09:30:24.644Z",
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+      },
+    },
+    "/todo/create": {
+      post: {
+        tags: ["todo"],
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+        summary: "Create todo",
+        description: "",
+        operationId: "createTodo",
+        requestBody: {
+          description: "",
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                example: {
+                  task: "newtask",
+                  date: "2023-11-11T00:00:00.000Z",
+                  time: "11-11-11",
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "successful operation",
+            content: {
+              "application/json": {
+                example: {
+                  message: "OK",
+                  error: false,
+                  code: 200,
+                },
+              },
+            },
+          },
+          400: {
+            description: "Bad request",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Task cannot be null",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/todo/{id}": {
+      get: {
+        tags: ["todo"],
+        summary: "Get single todo",
+        description: "",
+        operationId: "getTodoById",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: "",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Ok",
+                  code: 200,
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+      },
+      put: {
+        tags: ["todo"],
+        summary: "Update todo",
+        description: "",
+        operationId: "updateTodo",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                example: {
+                  task: 'todo edited"',
+                },
+                required: ["title", "author"],
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Ok",
+                  code: 200,
+                },
+              },
+            },
+          },
+          400: {
+            description: "Bad request",
+            content: {
+              "application/json": {
+                example: {
+                  message: "task cannot be null",
+                  error: true,
+                  code: 400,
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+      },
+      patch: {
+        tags: ["todo"],
+        summary: "Checklist todo",
+        description: "",
+        operationId: "updateTodo",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                example: {
+                  complete: true,
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Ok",
+                  code: 200,
+                },
+              },
+            },
+          },
+          400: {
+            description: "Bad request",
+            content: {
+              "application/json": {
+                example: {
+                  message: "title and author cannot be null",
+                  error: true,
+                  code: 400,
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+        },
+        security: [
+          {
+            api_key: [],
+          },
+        ],
+      },
+      delete: {
+        tags: ["todo"],
+        summary: "Delete todo",
+        description: "This can only be done by the logged in user.",
+        operationId: "deleteTodo",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            description: "The name that needs to be deleted",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: "successful operation",
+            content: {
+              "application/json": {
+                example: {
+                  message: "User deleted successfully",
+                  code: 200,
+                },
+              },
+            },
+          },
+          401: {
+            description: "Unauthorized | token expire",
+            content: {
+              "application/json": {
+                example: {
+                  message: "Invalid signature",
+                  error: true,
+                  code: 401,
+                },
+              },
+            },
+          },
+          404: {
+            description: "Book not found",
+          },
+        },
+        security: [
+          {
+            api_key: [],
+          },
+        ],
       },
     },
   },
@@ -239,11 +863,11 @@ module.exports = {
             format: "int64",
             example: 10,
           },
-          fName: {
+          fname: {
             type: "string",
             example: "John",
           },
-          lName: {
+          lname: {
             type: "string",
             example: "James",
           },
@@ -268,32 +892,55 @@ module.exports = {
             format: "int64",
             example: 10,
           },
-          petId: {
-            type: "integer",
-            format: "int64",
-            example: 198772,
+          title: {
+            type: "string",
+            example: "Gede Book",
           },
-          quantity: {
+          author: {
+            type: "string",
+            example: "John Thor",
+          },
+          desc: {
+            type: "string",
+            description: "book description",
+            example: "a book that tells about anything",
+          },
+          amount: {
             type: "integer",
             format: "int32",
-            example: 7,
-          },
-          shipDate: {
-            type: "string",
-            format: "date-time",
-          },
-          status: {
-            type: "string",
-            description: "Order Status",
-            example: "approved",
-            enum: ["placed", "approved", "delivered"],
-          },
-          complete: {
-            type: "boolean",
+            default: null,
           },
         },
         xml: {
-          name: "order",
+          name: "book",
+        },
+      },
+      Todo: {
+        type: "object",
+        properties: {
+          id: {
+            type: "integer",
+            format: "int64",
+            example: 10,
+          },
+          task: {
+            type: "string",
+            example: "Do exercise at 5pm",
+          },
+          date: {
+            type: "string",
+            format: "date-time",
+          },
+          complete: {
+            type: "boolean",
+            example: false,
+          },
+          user_id: {
+            type: "string",
+          },
+        },
+        xml: {
+          name: "todo",
         },
       },
       Tag: {
@@ -349,6 +996,19 @@ module.exports = {
       },
     },
     requestBodies: {
+      BookArray: {
+        description: "",
+        content: {
+          "application/json": {
+            schema: {
+              type: "array",
+              items: {
+                $ref: "#/components/schemas/Book",
+              },
+            },
+          },
+        },
+      },
       UserArray: {
         description: "List of user object",
         content: {
