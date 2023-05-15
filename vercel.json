@@ -1,21 +1,17 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/$1" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@now/node"
+    }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
+
       "src": "/(.*)",
-      "dest": "/$1"
+
+      "dest": "index.js"
     }
-  ],
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "vercel-node@1",
-      "memory": 256
-    }
-  }
+  ]
 }
