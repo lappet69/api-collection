@@ -8,7 +8,7 @@
     }
 ],
   "functions": {
-    "api/**/*.js": {
+    "src/api/*.js": {
       "runtime": "vercel-node@1.0.0"
     }
   }
