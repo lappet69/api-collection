@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const BookCTRL = require("../controllers/book.controller");
-const { verifyUser } = require("../middlewares/restrict");
+const BookCTRL = require("../src/controllers/book.controller");
+const { verifyUser } = require("../src/middlewares/restrict");
 
 router.get("/", verifyUser, BookCTRL.getBooks);
 router.post("/create", verifyUser, BookCTRL.createBook);
