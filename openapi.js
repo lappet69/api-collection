@@ -17,7 +17,7 @@ module.exports = {
   },
   servers: [
     {
-      url: "http://localhost:7000/api/v1",
+      url: `${process.env.BASE_URL}/api/v1"`,
     },
   ],
   tags: [
