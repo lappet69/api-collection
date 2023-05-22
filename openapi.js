@@ -235,11 +235,6 @@ module.exports = {
             },
           },
         },
-        security: [
-          {
-            api_key: [],
-          },
-        ],
       },
     },
     "/book/create": {
