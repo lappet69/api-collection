@@ -8,6 +8,9 @@ const router = require("./src/router/index");
 
 const swaggerFile = require("./openapi");
 const swaggerUI = require("swagger-ui-express");
+const swaggerOptions = {
+  customCssUrl: "/custom.css",
+};
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
@@ -22,7 +25,7 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Hey this is my API running 🥳");
 });
-app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile, swaggerOptions));
 app.use("/api/v1", router);
 
 module.exports = app;
