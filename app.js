@@ -9,7 +9,15 @@ const swaggerFile = require("./openapi");
 const swaggerUI = require("swagger-ui-express");
 
 // Serve static files
-app.use(express.static("public"));
+app.use(
+  express.static("public", {
+    setHeaders: (res, path) => {
+      if (path.endsWith(".css")) {
+        res.setHeader("Content-Type", "text/css");
+      }
+    },
+  })
+);
 
 app.use(express.json());
 app.use(cors());
