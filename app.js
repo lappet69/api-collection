@@ -10,10 +10,11 @@ const swaggerUI = require("swagger-ui-express");
 
 // Serve static files
 app.use(
-  express.static("public", {
-    setHeaders: (res, path) => {
+  express.static("/docs", {
+    setHeaders: (res, path, stat) => {
+      console.log(path.endsWith(".css"));
       if (path.endsWith(".css")) {
-        res.setHeader("Content-Type", "text/css", "charset=utf-8");
+        res.setHeader("Content-Type", "text/css");
       }
     },
   })
