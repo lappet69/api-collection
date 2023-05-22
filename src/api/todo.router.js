@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const TodoCTRL = require("../src/controllers/todo.controller");
-const { verifyUser } = require("../src/middlewares/restrict");
+const TodoCTRL = require("../controllers/todo.controller");
+const { verifyUser } = require("../middlewares/restrict");
 
 router.get("/", verifyUser, TodoCTRL.getTodos);
 router.post("/create", verifyUser, TodoCTRL.createTodo);
