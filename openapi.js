@@ -15,9 +15,10 @@ module.exports = {
     description: "Find out more about Swagger",
     url: "http://swagger.io",
   },
+  basePath: "/",
   servers: [
     {
-      url: `${process.env.BASE_URL}/api/v1"`,
+      url: `${process.env.BASE_URL}/api/v1`,
     },
   ],
   tags: [
