@@ -1,8 +1,8 @@
 {
   "name": "api-collection",
   "version": "1.0.0",
-  "private":true,
-  "main":"index.js",
+  "private": true,
+  "main": "index.js",
   "engines": {
     "node": "18.x"
   },
