@@ -8,7 +8,7 @@
     }
 ],
   "functions": {
-    "/*.js": {
+    "*.js": {
       "runtime": "vercel-node@1.0.0"
     }
   }
