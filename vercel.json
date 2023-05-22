@@ -11,5 +11,11 @@
       "src": "/(.*)",
       "dest": "/index.js"
     }
-  ]
+  ],
+  "function":{
+      "index.js": {
+        "runtime": "vercel-node@1.0.0"
+      }
+
+  }
 }
