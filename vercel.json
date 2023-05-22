@@ -12,7 +12,7 @@
       "dest": "/index.js"
     }
   ],
-  "function":{
+  "functions":{
       "index.js": {
         "runtime": "vercel-node@1.0.0"
       }
