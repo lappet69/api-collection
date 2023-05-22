@@ -5,9 +5,9 @@ const userRouter = require("./user.router");
 router.get("/", (req, res) => {
   res.send(`hey,API running 🥳 `);
 });
-router.use("/api/v1/todo", todoRouter);
-router.use("/api/v1/user", userRouter);
-router.use("/api/v1/book", bookRouter);
+router.use("/todo", todoRouter);
+router.use("/user", userRouter);
+router.use("/book", bookRouter);
 
 router.use(function (req, res, next) {
   res.invalidInput = function () {
