@@ -3,12 +3,12 @@
 
 "routes": [
     {
-      "src": "/(.*)",
+      "src": "/src/api/(.*)",
       "dest": "index.js"
     }
 ],
   "functions": {
-    "src/api/*.js": {
+    "api/**/*.js": {
       "runtime": "vercel-node@1.0.0"
     }
   }
