@@ -9,7 +9,7 @@
 ],
   "functions": {
     "api/**/*.js": {
-      "runtime": "vercel-node@latest"
+      "runtime": "@now/node"
     }
   }
 }
