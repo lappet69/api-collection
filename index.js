@@ -10,9 +10,11 @@ const swaggerUI = require("swagger-ui-express");
 
 app.use(express.json());
 app.use(cors());
+app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
+app.get("/", (req, res) => {
+  res.send("Hey this is my API running 🥳");
+});
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 app.use("/api/v1", router);
-
-app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
 
 module.exports = app;
