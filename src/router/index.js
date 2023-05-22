@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
   res.send(`hey,API running 🥳 `);
 });
 router.use("/todo", todoRouter);
-router.get("/user", userRouter);
+router.use("/user", userRouter);
 router.use("/book", bookRouter);
 
 router.use(function (req, res, next) {
