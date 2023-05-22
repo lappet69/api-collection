@@ -2,6 +2,7 @@
   "name": "api-collection",
   "version": "1.0.0",
   "private":true,
+  "main":"index.js",
   "engines": {
     "node": "14.x"
   },
