@@ -240,11 +240,6 @@ module.exports = {
     "/book/create": {
       post: {
         tags: ["book"],
-        security: [
-          {
-            api_key: [],
-          },
-        ],
         summary: "Create book",
         description: "",
         operationId: "createBook",
