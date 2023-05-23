@@ -347,11 +347,6 @@ module.exports = {
             },
           },
         },
-        security: [
-          {
-            api_key: [],
-          },
-        ],
       },
       put: {
         tags: ["book"],
@@ -420,11 +415,6 @@ module.exports = {
             },
           },
         },
-        security: [
-          {
-            api_key: [],
-          },
-        ],
       },
       delete: {
         tags: ["book"],
@@ -470,11 +460,6 @@ module.exports = {
             description: "Book not found",
           },
         },
-        security: [
-          {
-            api_key: [],
-          },
-        ],
       },
     },
     "/todo": {

@@ -5,9 +5,9 @@ const { verifyUser } = require("../middlewares/restrict");
 router.get("/", BookCTRL.getBooks);
 router.post("/create", verifyUser, BookCTRL.createBook);
 router.get("/:id", BookCTRL.getBookById);
-router.put("/:id", verifyUser, BookCTRL.updateBookById);
-router.delete("/:id", verifyUser, BookCTRL.deleteBook);
-router.post("/rent-book/:id", verifyUser, BookCTRL.rentBook);
-router.post("/add-amount-book/:id", verifyUser, BookCTRL.addAmountBook);
+router.put("/:id", BookCTRL.updateBookById);
+router.delete("/:id", BookCTRL.deleteBook);
+router.post("/rent-book/:id", BookCTRL.rentBook);
+router.post("/add-amount-book/:id", BookCTRL.addAmountBook);
 
 module.exports = router;
