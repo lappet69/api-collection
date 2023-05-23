@@ -3,7 +3,7 @@ const BookCTRL = require("../controllers/book.controller");
 const { verifyUser } = require("../middlewares/restrict");
 
 router.get("/", BookCTRL.getBooks);
-router.post("/create", verifyUser, BookCTRL.createBook);
+router.post("/create", BookCTRL.createBook);
 router.get("/:id", BookCTRL.getBookById);
 router.put("/:id", BookCTRL.updateBookById);
 router.delete("/:id", BookCTRL.deleteBook);
