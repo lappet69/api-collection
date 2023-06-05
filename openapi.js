@@ -34,6 +34,11 @@ module.exports = {
       name: "todo",
       description: "todo list collection",
     },
+    {
+      name: "zodiac",
+      description:
+        "Gives data on Zodiac signs, their personality traits and dates",
+    },
   ],
   paths: {
     "/user/create": {
@@ -826,6 +831,94 @@ module.exports = {
             api_key: [],
           },
         ],
+      },
+    },
+    "/zodiac": {
+      get: {
+        tags: ["zodiac"],
+        summary: "Get all zodiac",
+        description: "",
+        operationId: "getAllZodiac",
+        responses: {
+          200: {
+            description: "successful operation",
+            content: {
+              "application/json": {
+                schema: {
+                  example: {
+                    message: "OK",
+                    error: false,
+                    code: 200,
+                    result: {
+                      Aquarius: {
+                        date: "January 20 - February 18",
+                        personality:
+                          "Despite the 'aqua' in its name, Aquarius is actually the last air sign of the zodiac.",
+                      },
+                      Aries: {
+                        date: "March 21 - April 19",
+                        personality:
+                          "The first sign of the zodiac, Aries loves to be number one.",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/zodiac/{sign}": {
+      get: {
+        tags: ["zodiac"],
+        summary: "Get single zodiac",
+        description: "",
+        operationId: "getZodiacSign",
+        parameters: [
+          {
+            name: "sign",
+            in: "path",
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: "successful operation",
+            content: {
+              "application/json": {
+                schema: {
+                  example: {
+                    message: "OK",
+                    error: false,
+                    code: 200,
+                    result: {
+                      sign: "Taurus",
+                      date: "April 20 - May 20",
+                      personality:
+                        "What sign is more likely to take a six-hour bath, followed by a luxurious Swedish massage and decadent dessert spread? Why Taurus, of course! Taurus is an earth sign represented by the bull. Like their celestial spirit animal, Taureans enjoy relaxing in serene, bucolic environments surrounded by soft sounds, soothing aromas, and succulent flavors.",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          400: {
+            description: "Bad param request",
+            content: {
+              "application/json": {
+                example: {
+                  error: "Bad param request",
+                  statusCode: 400,
+                  message:
+                    "Please check sign in this list [Aquarius,Aries,Cancer,Capricorn,Gemini,Leo,Libra,Pisces,Sagittarius,Scorpio,Taurus,Virgo]",
+                },
+              },
+            },
+          },
+        },
       },
     },
   },
